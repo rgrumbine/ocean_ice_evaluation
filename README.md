@@ -1,16 +1,11 @@
-# EMC Repository Template
-
-Getting all the right files in the right place can be a pain. 
-This is a simple template repository that you can use to ensure you have all the right files present in your repo.
-
-## License
+# License
 
 This project is part of NOAA-EMC Ecosystem. 
 
 See LICENSE and DISCLAIMER for details.
 
-## This repository 
-This repository is for sharing ocean and ice tools, including dataflow and performance metrics
+# This repository 
+This repository is for sharing ocean and ice evaluation tools, including dataflow and performance metrics
 
 ### Contributing
 * Fork the main repository
@@ -19,5 +14,3 @@ This repository is for sharing ocean and ice tools, including dataflow and perfo
 * make a pull request to the main repository
 
 For now we don't have template for the pull request.
-
-  

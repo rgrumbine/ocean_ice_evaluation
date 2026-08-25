@@ -1,4 +1,6 @@
 #!/bin/sh
+#Robert Grumbine
+#22 Apr 2026
 
 wget --mirror https://noaadata.apps.nsidc.org/NOAA/G02135/north/daily/data/N_seaice_extent_daily_v4.0.csv  
   

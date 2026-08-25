@@ -1,5 +1,7 @@
 '''
 Plot the NSIDC extents against the UFS modelled extents
+Robert Grumbine
+22 Apr 2026
 '''
 
 import sys
@@ -77,7 +79,7 @@ sh    = np.zeros((int(24/dh*lead)))
 ufs_readin(sys.argv[4], nh, sh)
 for i in range(0, len(gdays)):
   gdays[i] = (i+1)*(dh/24)
-#  print(gdays[i], nh[i], sh[i])
+#debug: print(gdays[i], nh[i], sh[i], flush=True)
 
 #------------------------------------------------------------------------
 matplotlib.use('Agg')

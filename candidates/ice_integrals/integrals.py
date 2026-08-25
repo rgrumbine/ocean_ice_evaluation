@@ -34,10 +34,10 @@ def parse_8digits(tag):
 #gaea: base   = '/ncrc/home1/Robert.Grumbine/scratch6/COMROOT/'
 #ursa: base   = '/home/Robert.Grumbine/scratch/COMROOT/'
 #Wcoss2:
-base = sys.argv[0]
-expt   = sys.argv[1]
-start  = parse_8digits(sys.argv[2] )
-#print(base, expt, start)
+base   = sys.argv[1]
+expt   = sys.argv[2]
+start  = parse_8digits(sys.argv[3] )
+#debug: print(base, expt, start, flush=True)
 #exit(0)
 
 maxmem = 0 #0 for GFS, 10 for SFS
@@ -90,7 +90,7 @@ for memno in range(0,maxmem+1):
   #fbase = base + '/' + expt + '/00/mem' + \
   #             f"{memno:03d}"+'/products/ice/netcdf/native/sfs.t00z.native.f'
   # GFS
-  fbase =  './' + expt + "/00/model/ice/history/gfs.t00z.6hr_avg.f"
+  fbase =  base + expt + "/00/model/ice/history/gfs.t00z.6hr_avg.f"
 
   for h in range(dh,maxhour+1,dh):
     fname = fbase + f"{h:03d}" + '.nc'
@@ -107,14 +107,14 @@ for memno in range(0,maxmem+1):
       tarea = grid.variables['tarea'][:,:]
       del grid
       tarea /= 1e12
-      #debug: print("tarea ",tarea.max(), tarea.min() )
+      #debug: print("tarea ",tarea.max(), tarea.min(), flush=True )
       #debug: sys.exit(0)
 
       nharea = copy.deepcopy(tarea)
       nharea[tlat < 0] = 0.
       sharea = copy.deepcopy(tarea)
       sharea[tlat > 0] = 0.
-      #debug: print("nh, sh area",nharea.max(), sharea.max(), nharea.shape )
+      #debug: print("nh, sh area",nharea.max(), sharea.max(), nharea.shape, flush=True )
       #debug: sys.exit(0)
 
     hi = model.variables['hi_h'][0,:,:]

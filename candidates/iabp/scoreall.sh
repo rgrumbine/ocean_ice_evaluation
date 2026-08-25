@@ -1,4 +1,6 @@
 #!/bin/sh
+#Robert Grumbine
+#22 Apr 2026
 
 for f in *.sp
 do

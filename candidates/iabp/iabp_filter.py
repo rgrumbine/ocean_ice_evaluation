@@ -4,6 +4,8 @@ then write those back out
 qc:
     skip if latitude > 90 or < -90
     wrap in to -180, 180
+Robert Grumbine
+22 Apr 2026
 '''
 
 import sys

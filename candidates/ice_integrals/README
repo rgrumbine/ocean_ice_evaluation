@@ -28,3 +28,5 @@ it will compute and plot the global area, global volume, global extent, NH exten
 and produce plot of nh and sh extent observed (by NSIDC) and modeled
       python3 ufsfcst.py $yy $mm $dd int.${yy}${mm}${dd}
 
+Robert Grumbine
+22 April 2026

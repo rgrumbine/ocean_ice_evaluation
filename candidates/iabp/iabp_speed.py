@@ -9,6 +9,9 @@ time is monotonic in data file
 
 fix:
 use real distance computation
+
+Robert Grumbine
+22 Apr 2026
 '''
 
 #from math import sin, cos, atan2, sqrt, pi

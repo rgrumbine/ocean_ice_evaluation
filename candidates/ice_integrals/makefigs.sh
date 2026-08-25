@@ -1,4 +1,6 @@
 #!/bin/sh
+#Robert Grumbine
+#22 Apr 2026
 
 #ursa:
 source ~/rg/env3.13/bin/activate

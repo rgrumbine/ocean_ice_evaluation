@@ -1,0 +1,12 @@
+#!/bin/bash 
+###WCOSS2
+#PBS -N edge_persist
+#PBS -o edge_persist
+#PBS -j oe
+#PBS -A ICE-DEV
+#PBS -q dev_transfer
+#PBS -l walltime=0:05:00
+#PBS -l select=1:ncpus=1
+
+cd $HOME/rgdev/edges
+scp -p *.png rgrumbine@emcrzdm:rgweb/ice/edge/persist

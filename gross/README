@@ -1,0 +1,17 @@
+
+Shared by gross check for different models and components:
+ctl/               -- Control files, particularly the bounds to be checked
+curves/            -- Bounding curves for regions. Esp used by exception checker
+exceptions/        -- Exception checker -- print points which aren't 
+                           being given an exception for breaking the bounds
+graphics/          -- graphics tools
+gross/             -- shared python code
+model_definitions/ -- defining a model's netcdf arrangement to lift work 
+                           away from gross checker
+
+Per model+component
+model_component.sh  -- file to kick off evaluation
+model_component/    -- directory to hold the specific scripts
+
+Robert Grumbine
+10 September 2026

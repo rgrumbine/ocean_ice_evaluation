@@ -1,0 +1,19 @@
+#!/bin/bash 
+###WCOSS2
+#PBS -N rtofs_edge
+#PBS -o rtofs_edge
+#PBS -j oe
+#PBS -A ICE-DEV
+#PBS -q dev_transfer
+#PBS -l walltime=0:05:00
+#PBS -l select=1:ncpus=1
+
+module load prod_envir
+
+TARGET=rgrumbine@emcrzdm:
+base='rgweb/'
+
+
+cd $HOME/noscrub/model_intercompare/edge.eval/rtofs_scores
+
+scp -p *.png ${TARGET}$base/ice/edge/rtofs

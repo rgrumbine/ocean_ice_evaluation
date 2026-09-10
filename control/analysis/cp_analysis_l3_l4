@@ -1,0 +1,24 @@
+#!/bin/bash 
+###WCOSS2
+#PBS -N analy
+#PBS -o analy
+#PBS -j oe
+##PBS -A ICE-DEV
+#PBS -A XFER-DEV
+#PBS -q dev_transfer
+#PBS -l walltime=0:05:00
+#PBS -l select=1:ncpus=1
+
+module load prod_envir
+today=`date +"%Y%m%d"`
+cd $COMROOT/seaice_analysis/v4.5/seaice_analysis.$today
+
+scp -p *.gif rgrumbine@emcrzdm:rgweb/ice/analy
+for f in seaice.t00z.global5min.gif seaice.t00z.nh12.gif seaice.t00z.sh12.gif
+do
+  b=`echo $f | cut -f1-3 -d.`
+  scp -p $f rgrumbine@emcrzdm:rgweb/ice/analy/$b.$today.gif
+done
+echo $today > $HOME/date_tag
+scp $HOME/date_tag rgrumbine@emcrzdm:rgweb/ice/analy
+

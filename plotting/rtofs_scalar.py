@@ -22,12 +22,16 @@ fields.close()
 
 # ---------- Begin plotting --------------------------------
 matplotlib.use('Agg')
+nhdomains = [1,3]
 
 domain = int(sys.argv[3])
 if (domain == 0):
   proj = ccrs.PlateCarree()
-elif (domain == 1):
-  proj = ccrs.NorthPolarStereo(central_longitude = -80.0)
+elif (domain in nhdomains ):
+  if (domain == nhdomains[0]):
+    proj = ccrs.NorthPolarStereo(central_longitude = -80.0)
+  elif (domain == nhdomains[1]):
+    proj = ccrs.NorthPolarStereo(central_longitude = -170.0)
 elif (domain == 2):
   proj = ccrs.SouthPolarStereo(central_longitude = -80.0)
 else:
@@ -41,12 +45,17 @@ ax = plt.axes(projection = proj)
 fig = plt.figure(figsize=(9,9))
 ax = fig.add_subplot(1,1,1, projection = proj)
 
+xlocs = list(range(-180,181,30))
 if (domain == 0):
   #Globe
   ax.set_extent((-180, 180, -90, 90),crs=ccrs.PlateCarree() )
-elif (domain == 1):
+elif (domain in nhdomains ):
   #Arctic:
-  ax.set_extent((-180, 180, 30, 90), crs=ccrs.PlateCarree() )
+  if (domain == nhdomains[0]):
+    ax.set_extent((-180, 180, 30, 90), crs=ccrs.PlateCarree() )
+  elif (domain == nhdomains[1]):
+    ax.set_extent((-180, -120, 55, 80), crs=ccrs.PlateCarree() )
+    xlocs = list(range(-180,-119,10))
 elif (domain == 2):
   #AA
   ax.set_extent((-180,180, -90, -40), crs=ccrs.PlateCarree() )
@@ -56,7 +65,7 @@ else:
 
 proj = ccrs.PlateCarree()
 ax.coastlines(resolution='10m')
-ax.gridlines(crs = proj)
+ax.gridlines(crs = proj, xlocs = xlocs)
 
 cmap = matplotlib.colormaps.get_cmap('bwr')
 cs = ax.pcolormesh(lons, lats, scalar,
@@ -67,5 +76,5 @@ title = sys.argv[4]
 cbarlabel = '%s' % title
 cb.set_label(cbarlabel, fontsize=12)
 
-plt.savefig("scalar."+parm+".png")
+plt.savefig("scalar."+parm+f"{domain:d}"+".png")
 plt.close()

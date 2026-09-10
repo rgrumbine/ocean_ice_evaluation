@@ -1,0 +1,18 @@
+#!/bin/bash 
+###WCOSS2
+#PBS -N gross
+#PBS -o gross
+#PBS -j oe
+#PBS -A ICE-DEV
+#PBS -q dev_transfer
+#PBS -l walltime=0:05:00
+#PBS -l select=1:ncpus=1
+
+module load prod_envir
+
+TARGET=rgrumbine@emcrzdm:
+base='rgweb/'
+
+cd $HOME/noscrub/model_intercompare/gross/rtofs_cice/rtofs_cice
+scp -p *.png ${TARGET}$base/ice/gross/rtofs_cice
+

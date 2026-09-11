@@ -12,7 +12,7 @@ set -x
 cd /u/robert.grumbine/rgdev/ocean_ice_evaluation/control/analysis
 
 tag=`date +"%Y%m%d"`
-for domain in 0 1 2 3
+for domain in 0 1 2 4 5
 do
   scp v17dom$domain.$tag.png rgrumbine@emcrzdm:rgweb/ice/analy/
   scp v17dom$domain.$tag.png rgrumbine@emcrzdm:rgweb/ice/analy/v17dom$domain.png

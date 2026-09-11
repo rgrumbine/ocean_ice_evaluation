@@ -22,7 +22,7 @@ fields.close()
 
 # ---------- Begin plotting --------------------------------
 matplotlib.use('Agg')
-nhdomains = [1,3]
+nhdomains = [1, 3, 4, 5]
 
 domain = int(sys.argv[3])
 if (domain == 0):
@@ -30,7 +30,7 @@ if (domain == 0):
 elif (domain in nhdomains ):
   if (domain == nhdomains[0]):
     proj = ccrs.NorthPolarStereo(central_longitude = -80.0)
-  elif (domain == nhdomains[1]):
+  elif (domain == nhdomains[1] or domain == nhdomains[2] or domain == nhdomains[3]):
     proj = ccrs.NorthPolarStereo(central_longitude = -170.0)
 elif (domain == 2):
   proj = ccrs.SouthPolarStereo(central_longitude = -80.0)
@@ -44,6 +44,8 @@ else:
 ax = plt.axes(projection = proj)
 fig = plt.figure(figsize=(9,9))
 ax = fig.add_subplot(1,1,1, projection = proj)
+#cmap = matplotlib.colormaps.get_cmap('bwr')
+cmap = matplotlib.colormaps.get_cmap('Blues_r')
 
 xlocs = list(range(-180,181,30))
 if (domain == 0):
@@ -54,8 +56,17 @@ elif (domain in nhdomains ):
   if (domain == nhdomains[0]):
     ax.set_extent((-180, 180, 30, 90), crs=ccrs.PlateCarree() )
   elif (domain == nhdomains[1]):
+    # Alaska Region
     ax.set_extent((-180, -120, 55, 80), crs=ccrs.PlateCarree() )
-    xlocs = list(range(-180,-119,10))
+    xlocs = list(range(-180,181,10))
+  elif (domain == nhdomains[2]):
+    # Bering South
+    ax.set_extent((-190, -155, 55, 65), crs=ccrs.PlateCarree() )
+    xlocs = list(range(-180,181,10))
+  elif (domain == nhdomains[3]):
+    # Bering North
+    ax.set_extent((-180, -120, 65, 75), crs=ccrs.PlateCarree() )
+    xlocs = list(range(-180,181,10))
 elif (domain == 2):
   #AA
   ax.set_extent((-180,180, -90, -40), crs=ccrs.PlateCarree() )
@@ -67,7 +78,6 @@ proj = ccrs.PlateCarree()
 ax.coastlines(resolution='10m')
 ax.gridlines(crs = proj, xlocs = xlocs)
 
-cmap = matplotlib.colormaps.get_cmap('bwr')
 cs = ax.pcolormesh(lons, lats, scalar,
                          cmap = cmap,
                          transform= proj )

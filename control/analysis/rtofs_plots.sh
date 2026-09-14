@@ -16,8 +16,8 @@ export EXDIR=$HOME/rgdev/ocean_ice_evaluation/plotting
 
 cd /u/robert.grumbine/rgdev/ocean_ice_evaluation/control/analysis
 
-export tag=`date +"%Y%m%d"`
-#export tag=20260907
+export tag=${tag:-`date +"%Y%m%d"`}
+
 for domain in 0 1 2 3
 do
   python3 $EXDIR/rtofs_scalar.py $COMROOT/rtofs_cice/rtofs.$tag/rtofs_glo.t00z.n00.cice_inst.nc aice $domain "RTOFS $tag ice concentration"

@@ -56,6 +56,10 @@ lonmin = min(lon)
 
 # i-j plot of error points ----------------------------------
 matplotlib.use('Agg') #batch mode
+if markersize <= 12:
+    alpha = 1
+else:
+    alpha = 0.2/25
 
 #Elaborations:
 #  title
@@ -93,14 +97,11 @@ ylocs = list(range(0, 91, 15))
 
 ax.set_extent([-180,180,30,90], crs=ccrs.PlateCarree() )
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
-# not on hera: ax.coastlines()
-ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
-if markersize <= 12:
-    alpha = 1
-else:
-    alpha = 0.2/25
+# not on hera: 
+ax.coastlines()
+#ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
 
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha, c='red')
 plt.savefig("nh_errs_"+title_tag+".png")
 plt.close()
 
@@ -119,12 +120,8 @@ ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
 # not on hera: ax.coastlines()
 ax.coastlines()
 #ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
-if markersize <= 12:
-    alpha = 1
-else:
-    alpha = 0.2/25
 
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha, c='red')
 plt.savefig("sh_errs_"+title_tag+".png")
 plt.close()
 
@@ -140,14 +137,11 @@ ax.set_extent([-180,180,-60,60], crs=ccrs.PlateCarree() )
 xlocs = list(range(-180,181,30))
 ylocs = list(range(-60, 61, 15))
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
-# not on hera: ax.coastlines()
-ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
-if markersize <= 12:
-    alpha = 1
-else:
-    alpha = 0.2/25
+# not on hera: 
+ax.coastlines()
+#ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
 
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha, c='red')
 plt.savefig("nonpolar_errs_"+title_tag+".png")
 plt.close()
 

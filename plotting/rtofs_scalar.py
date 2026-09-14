@@ -67,7 +67,7 @@ proj = ccrs.PlateCarree()
 ax.coastlines(resolution='10m')
 ax.gridlines(crs = proj, xlocs = xlocs)
 
-cmap = matplotlib.colormaps.get_cmap('bwr')
+cmap = matplotlib.colormaps.get_cmap('jet')
 cs = ax.pcolormesh(lons, lats, scalar,
                          cmap = cmap,
                          transform= proj )

@@ -45,7 +45,7 @@ ax = plt.axes(projection = proj)
 fig = plt.figure(figsize=(9,9))
 ax = fig.add_subplot(1,1,1, projection = proj)
 #cmap = matplotlib.colormaps.get_cmap('bwr')
-cmap = matplotlib.colormaps.get_cmap('Blues_r')
+cmap = matplotlib.colormaps.get_cmap('jet')
 
 xlocs = list(range(-180,181,30))
 if (domain == 0):
@@ -78,6 +78,7 @@ proj = ccrs.PlateCarree()
 ax.coastlines(resolution='10m')
 ax.gridlines(crs = proj, xlocs = xlocs)
 
+cmap = matplotlib.colormaps.get_cmap('jet')
 cs = ax.pcolormesh(lons, lats, scalar,
                          cmap = cmap,
                          transform= proj )

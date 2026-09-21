@@ -41,7 +41,7 @@ end=`expr $end - 1`
 end=`$HOME/bin/dtgfix3 $end`
 end=`expr $end - 1`
 end=`$HOME/bin/dtgfix3 $end`
-#export end=20260802
+#export end=20260804
 echo $start $end
 
 #------------------------ General across platforms --------------

@@ -75,13 +75,13 @@ cat beta.*.* > all.$MODEL
 
 for model in $MODEL
 do
-  python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
+  python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12. $tag
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$model all.$model > nonphysical.$model
-  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12.
+  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12. $tag
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
-  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12.
+  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12. $tag
 done
 
 #-------------------------------------------------------------------------
@@ -102,12 +102,11 @@ do
   for f in *.s
   do
     if [ -s $f ] ; then
-      python3 $GDIR/graphics/plot_errs.py $f $f 12
+      python3 $GDIR/graphics/plot_errs.py $f $f 12 $tag
     fi
   done
   mv *.png *.s $model
 # ------------------ copy to desk for pseudo-web
   cd $model
   # need dtn node: scp -p *.png rgrumbine@emcrzdm:rgweb/ice/gross/$model
-# qsub $HOME/rgdev/forweb/cp_rtofs_gross
 done

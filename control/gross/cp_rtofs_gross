@@ -15,4 +15,4 @@ base='rgweb/'
 
 cd $HOME/noscrub/model_intercompare/gross/rtofs_cice/rtofs_cice
 scp -p *.png ${TARGET}$base/ice/gross/rtofs_cice
-
+scp -p *.s   ${TARGET}$base/ice/gross/rtofs_cice

@@ -23,6 +23,8 @@ try:
 except:
   markersize = 12
 
+dtg = sys.argv[4]
+
 parm = []
 i = []
 j = []
@@ -67,7 +69,7 @@ fig,ax = plt.subplots()
 plt.scatter(i,j, s = markersize)
 ax.grid() 
 plt.title(title_tag)
-plt.savefig("ij_errs_"+title_tag+".png")
+plt.savefig("ij_errs_"+title_tag+dtg+".png")
 plt.close()
 
 # geographic -- NH -- plot of error points ---------------------------------
@@ -101,7 +103,7 @@ else:
     alpha = 0.2/25
 
 plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
-plt.savefig("nh_errs_"+title_tag+".png")
+plt.savefig("nh_errs_"+title_tag+dtg+".png")
 plt.close()
 
 # ---------- SH plot ----------------------------------------------------------
@@ -125,7 +127,7 @@ else:
     alpha = 0.2/25
 
 plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
-plt.savefig("sh_errs_"+title_tag+".png")
+plt.savefig("sh_errs_"+title_tag+dtg+".png")
 plt.close()
 
 # ------ Non-polar plot -------------------------------------------------------------
@@ -148,6 +150,6 @@ else:
     alpha = 0.2/25
 
 plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
-plt.savefig("nonpolar_errs_"+title_tag+".png")
+plt.savefig("nonpolar_errs_"+title_tag+dtg+".png")
 plt.close()
 

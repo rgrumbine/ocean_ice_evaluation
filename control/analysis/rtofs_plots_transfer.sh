@@ -13,7 +13,7 @@ cd /u/robert.grumbine/rgdev/ocean_ice_evaluation/control/analysis
 
 tag=${tag:-`date +"%Y%m%d"`}
 
-for domain in 0 1 2 4 5
+for domain in 0 1 2 4 5 6 7
 do
   scp rtofs$domain.$tag.png rgrumbine@emcrzdm:rgweb/ice/analy/
   scp rtofs$domain.$tag.png rgrumbine@emcrzdm:rgweb/ice/analy/rtofs$domain.png

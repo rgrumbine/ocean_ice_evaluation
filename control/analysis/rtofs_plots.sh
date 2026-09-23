@@ -16,7 +16,7 @@ export EXDIR=$HOME/rgdev/ocean_ice_evaluation/plotting
 
 cd /u/robert.grumbine/rgdev/ocean_ice_evaluation/control/analysis
 
-tag=20260921
+#tag=20260921
 export tag=${tag:-`date +"%Y%m%d"`}
 
 for domain in 0 1 2 3 4 5 6 7

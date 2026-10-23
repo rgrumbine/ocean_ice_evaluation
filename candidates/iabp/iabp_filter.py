@@ -36,9 +36,9 @@ def nearcycle(fcycle, fincr, fnear):
 
 #-------------------------------------------------------------------------
 # Change these
-start = datetime.date(2024,1,1)
-end   = datetime.date(2026,4,4)
-cycle = 0 # hours UTC
+start = datetime.date(2026,1,1)
+end   = datetime.date.today()
+cycle = 0     # hours UTC
 dtlim = 60*30 # window in seconds of being 'near' cycle
 
 #-------------------------------------------------------------------------
@@ -54,7 +54,6 @@ except:
   sys.exit(1)
 
 # IABP format is header line and then N lines of data. Position DOY may not match obs DOY
-# Read and echo the header line
 try:
     line = fin.readline()
     #debug: print(line,end="", flush=True)
@@ -98,7 +97,7 @@ for more in fin:
   incr = (float(words[5])-1.) * dt
   obs += incr
 
-  # RG: preserve previous and only take new days' observations, vs. 
+  # Preserve previous and only take new days' observations, vs. 
   #          multiple within the 2*dtlim window
   if (end >= obs >= start and nearcycle(cycle, incr, dtlim) ):
     print(words[1], words[5], lat, lon, end=" " )

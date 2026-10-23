@@ -43,10 +43,10 @@ class fcst_pt:
     fspeed = fndist / fdelta
     return (fndist, fdirection, fdelta, fspeed)
 
-  def finddate(self, fcsts, fdate):
+  @staticmethod
+  def finddate(fcsts, fdate, toler = 1800):
     ''' finddate -- find the index, if it exists, of the drifter on given date ''' 
     np = len(fcsts)
-    toler = 1800
     for fi in range(0, np):
       if (abs((fcsts[fi].tag - fdate).total_seconds()) < toler):
         #debug: print(fcsts[fi].tag , fdate, fcsts[fi].tag - fdate, flush = True)
@@ -56,9 +56,12 @@ class fcst_pt:
 
 
 #-----------------------------------------------------------------------------
+#debug: print('python',sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], flush=True)
 
 locations = []
 fcst_date = parse_8digits(int(sys.argv[1]) )
+#debug: print("fcst_date = ",fcst_date, flush=True)
+
 fcst_len = int(sys.argv[2])
 
 # Read in buoy file and print out drifts vs forecast lead -----
@@ -71,7 +74,6 @@ with open(sys.argv[3], encoding='utf-8') as fin:
 npts = len(locations)
 
 obs_index = fcst_pt.finddate(locations, fcst_date)
-#debug: print("finddate ", fcst_date, obs_index, flush=True )
 
 ## print out all forecasts derivable from buoy, out to fcst_len
 #for i in range(0, npts):
@@ -94,7 +96,8 @@ print(" ")
 
 #-----------------------------------------------------------------------------
 # Newdrift model output is one file per forecast lead, lead in hours in fcst. name
-dbase = '/export/emc-lw-rgrumbi/rmg3/newdrift_fcst/'+fcst_date.strftime("%Y%m%d")
+#dbase = '/export/emc-lw-rgrumbi/rmg3/newdrift_fcst/'+fcst_date.strftime("%Y%m%d")
+dbase = sys.argv[4]
 dt = datetime.timedelta(1)
 fbase = dbase + '/drift_f'
 

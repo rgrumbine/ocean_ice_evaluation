@@ -2,15 +2,19 @@
 
 export base=/u/robert.grumbine/
 
-cd $HOME/noscrub/verification/iabp
-EXDIR=$HOME/rgdev/ocean_ice_evaluation/candidates/iabp
-source $HOME/env3.12/bin/activate
-export PYTHONPATH=$PYTHONPATH:$HOME/rgops/mmablib/py
+EXDIR=$base/rgdev/ocean_ice_evaluation/dataflow/iabp
+
+cd $base/noscrub/verification/iabp
+source $base/env3.12/bin/activate
+export PYTHONPATH=$PYTHONPATH:$base/rgops/mmablib/py
 
 # Shouldn't need changes below here -----------------------
 
 tag=${tag:-`date +"%Y%m%d"`}
-tag=20261021
+tag=`expr $tag - 1 `
+tag=`$base/bin/dtgfix3 $tag`
+tag=`expr $tag - 1 `
+tag=`$base/bin/dtgfix3 $tag`
 
 # Filter to 00 utc and since 2026/1/1 (hardwired in iabp_filter) 
 cd $tag 

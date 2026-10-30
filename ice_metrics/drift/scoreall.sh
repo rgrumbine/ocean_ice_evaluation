@@ -5,8 +5,9 @@
 base=/u/robert.grumbine
 
 IABPDIR=$base/noscrub/verification/iabp
-EXDIR=$base/rgdev/ocean_ice_evaluation/candidates/iabp
+EXDIR=$base/rgdev/ocean_ice_evaluation/ice_metrics/drift
 OUTDIR=$base/noscrub/devdrift/
+
 source $base/env3.12/bin/activate
 export PYTHONPATH=$PYTHONPATH:$base/rgops/mmablib/py
 
@@ -17,9 +18,9 @@ tag=20261021
 INDIR=$IABPDIR/$tag/
 
 lead=8
-fcst=20260901
+fcst=20260401
 
-while [ $fcst -le 20261010 ]
+while [ $fcst -le 20260831 ]
 do
   echo forecasts from $fcst
   cd $OUTDIR/$fcst

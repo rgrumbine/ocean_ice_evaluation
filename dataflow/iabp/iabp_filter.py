@@ -97,7 +97,7 @@ for more in fin:
   incr = (float(words[5])-1.) * dt
   obs += incr
 
-  # Preserve previous and only take new days' observations, vs. 
+  # Preserve previous and only take new days' observations, vs.
   #          multiple within the 2*dtlim window
   if (end >= obs >= start and nearcycle(cycle, incr, dtlim) ):
     print(words[1], words[5], lat, lon, end=" " )

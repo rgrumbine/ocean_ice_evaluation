@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -x
+
+if [ ! -d  $HOME/noscrub/verification/iabp ] ; then 
+	mkdir -p $HOME/noscrub/verification/iabp 
+fi
+cd $HOME/noscrub/verification/iabp
+
+tag=20230331
+end=`date +"%Y%m%d"`
+end=`expr $end - 1`
+end=`$HOME/bin/dtgfix3 $end`
+
+while [ $tag -le $end ]
+do
+  if [ ! -d $tag ] ; then 
+    if [ -d /lfs/h1/ops/dev/dcom/$tag/seaice/iabp ] ; then
+      mkdir $tag
+      cp -rp /lfs/h1/ops/dev/dcom/$tag/seaice/iabp/* $tag
+    fi
+  fi
+  
+  tag=`expr $tag + 1`
+  tag=`$HOME/bin/dtgfix3 $tag`
+done

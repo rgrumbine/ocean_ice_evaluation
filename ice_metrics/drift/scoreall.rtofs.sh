@@ -52,7 +52,7 @@ do
   for f in $INDIR/*.sp
   do
     if [ -s $f ] ; then
-      time python3 $EXDIR/make_fcsts.py $fcst $lead $f $OUTDIR > `basename $f`.verf
+      python3 $EXDIR/make_fcsts.py $fcst $lead $f $OUTDIR > `basename $f`.verf
     fi
   done
 

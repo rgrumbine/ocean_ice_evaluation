@@ -19,12 +19,11 @@ tag=`$base/bin/dtgfix3 $tag`
 tag=`expr $tag - 1`
 tag=`$base/bin/dtgfix3 $tag`
 
-#tag=20261028
 INDIR=$IABPDIR/$tag/
 
 
 lead=16
-fcst=20260101
+fcst=20261001
 
 d=0
 end=$tag
@@ -51,7 +50,7 @@ do
   
   for f in $INDIR/*.sp
   do
-    if [ -s $f ] ; then
+    if [ -s $f -a ! -f `basename $f`.verf ] ; then
       python3 $EXDIR/make_fcsts.py $fcst $lead $f $OUTDIR > `basename $f`.verf
     fi
   done

@@ -1,2 +1,8 @@
 Directory for tested ice metric tools
 
+press.py -- graphics for 'pressure' fields
+drift    -- score model drift
+
+Robert Grumbine
+3 November 2026 
+

@@ -24,11 +24,10 @@ INDIR=$IABPDIR/$tag/
 
 
 lead=8
-fcst=20260901
+fcst=20261024
 
 d=0
 end=$tag
-end=$fcst
 while [ $d -lt $lead ] 
 do
   end=`expr $end - 1`
@@ -37,16 +36,16 @@ do
 done
 echo data through $tag forecasts through $end
 
-
+#set -x
 while [ $fcst -le $end ]
 do
   echo forecasts from $fcst
   cd $OUTDIR/$fcst
   if [ $? -ne 0 ] ; then
     echo could not cd to $fcst
+  else
+    time python3 $EXDIR/match2.py $tag $lead $OUTDIR $OUTDIR/$fcst $INDIR/*.out > match2.verf 
   fi 
-
-  python3 $EXDIR/match2.py $tag $lead $OUTDIR $INDIR $INDIR/*.out > 
 
   fcst=`expr $fcst + 1`
   fcst=`$base/bin/dtgfix3 $fcst`

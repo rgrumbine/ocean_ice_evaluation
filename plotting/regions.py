@@ -69,6 +69,16 @@ class sbering(plotting_regions):
       self.true_scale_latitude = 60.0
       self.mpro = 'nps'
 
+class gulf_stl(plotting_regions):
+  def __init__(self):
+      self.figsize=(8,6)
+      self.xlocs  = list(range(-75,-45,5))
+      self.ylocs  = list(range(45, 60, 5))
+      self.extent = [-75, -45, 45, 60]
+      self.central_longitude = -60.
+      self.true_scale_latitude = 50.0
+      self.mpro = 'nps'
+
 class nsr(plotting_regions):
   def __init__(self):
       self.figsize=(8,4)

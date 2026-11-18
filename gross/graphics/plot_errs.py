@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
+from plot_regions import *
+
 #----------------------------------------------------------
 fin = open(sys.argv[1],"r", encoding='utf-8')
 
@@ -70,64 +72,60 @@ else:
 #  different sizes per parameter
 
 fig,ax = plt.subplots()
-plt.scatter(i,j, s = markersize)
+plt.scatter(i,j, c = 'r', s = markersize)
 ax.grid() 
 plt.title(title_tag)
 plt.savefig("ij_errs_"+title_tag+dtg+".png")
 plt.close()
 
 # geographic -- NH -- plot of error points ---------------------------------
-
-proj = ccrs.NorthPolarStereo(central_longitude=-170., true_scale_latitude = 60.)
-#proj = ccrs.LambertConformal(central_longitude=-170., central_latitude = 60., cutoff=25.)
-#proj = ccrs.PlateCarree()
+domain = 1
+x = nh()
+proj = ccrs.NorthPolarStereo(central_longitude=x.central_longitude, true_scale_latitude = 60.)
 
 ax = plt.axes(projection = proj)
 fig = plt.figure(figsize = (8,6))
 ax = fig.add_subplot(1,1,1,projection = proj)
 plt.title(title_tag)
 
-xlocs = list(range(-180,181,30))
-#xlocs = list(range(10*int(lonmin/10), 10*int(lonmax/10), 10))
+xlocs = x.xlocs
+ylocs = x.ylocs
 
-#if ((latmax - latmin) < 30):
-#  mean = (latmax + latmin)/2.
-#  ax.set_extent((-180, 180, min(90, mean + 30), max(-90, mean - 30)), crs= proj )
-#  ylocs = list(range(int(max(-90, mean-30)), int(min(90, mean + 30) ), 5))
-#else:
-ylocs = list(range(0, 91, 15))
-
-ax.set_extent([-180,180,30,90], crs=ccrs.PlateCarree() )
+ax.set_extent(x.extent, crs=ccrs.PlateCarree() )
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
 # not on hera: 
 ax.coastlines()
 #ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
 
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), c = 'r', s = markersize, alpha = alpha)
 plt.savefig("nh_errs_"+title_tag+dtg+".png")
 plt.close()
 
 # ---------- SH plot ----------------------------------------------------------
-proj = ccrs.SouthPolarStereo(central_longitude=-60., true_scale_latitude = -60.)
+domain = 2
+x = sh()
+proj = ccrs.SouthPolarStereo(central_longitude= x.central_longitude, true_scale_latitude = -60.)
 
 ax = plt.axes(projection = proj)
 fig = plt.figure(figsize = (8,6))
 ax = fig.add_subplot(1,1,1,projection = proj)
 plt.title(title_tag)
 
-ax.set_extent([-180,180,-90,-30], crs=ccrs.PlateCarree() )
-xlocs = list(range(-180,181,30))
-ylocs = list(range(-90, 1, 15))
+xlocs = x.xlocs
+ylocs = x.ylocs
+ax.set_extent(x.extent, crs=ccrs.PlateCarree() )
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
 # not on hera: ax.coastlines()
 ax.coastlines()
 #ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
 
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), c = 'r', s = markersize, alpha = alpha)
 plt.savefig("sh_errs_"+title_tag+dtg+".png")
 plt.close()
 
 # ------ Non-polar plot -------------------------------------------------------------
+domain = 0
+x = globe()
 proj = ccrs.PlateCarree()
 
 ax = plt.axes(projection = proj)
@@ -135,15 +133,15 @@ fig = plt.figure(figsize = (8,6))
 ax = fig.add_subplot(1,1,1,projection = proj)
 plt.title(title_tag)
 
-ax.set_extent([-180,180,-60,60], crs=ccrs.PlateCarree() )
-xlocs = list(range(-180,181,30))
-ylocs = list(range(-60, 61, 15))
+xlocs = x.xlocs
+ylocs = x.ylocs
+ax.set_extent(x.extent, crs=ccrs.PlateCarree() )
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
 # not on hera: 
 ax.coastlines()
 #ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="l") )
 
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), c = 'r', s = markersize, alpha = alpha)
 plt.savefig("nonpolar_errs_"+title_tag+dtg+".png")
 plt.close()
 

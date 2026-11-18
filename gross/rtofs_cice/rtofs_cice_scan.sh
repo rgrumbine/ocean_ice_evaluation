@@ -28,7 +28,7 @@ export GDIR=$HOME/rgdev/ocean_ice_evaluation/gross/
 
 set -x
 
-export PYTHONPATH=$PYTHONPATH:$GDIR/gross
+export PYTHONPATH=$PYTHONPATH:$GDIR/gross:$GDIR/graphics
 export MODDEF=$GDIR/model_definitions
 
 export modelout=${modelout:-$HOME/noscrub/model_intercompare/rtofs_cice}
@@ -37,6 +37,11 @@ export modelout=${modelout:-$HOME/noscrub/model_intercompare/rtofs_cice}
 export start=${start:-20260821}
 export end=${end:-20260831}
 export level=${level:-extreme}
+
+RUNDIR=${RUNDIR:-/u/robert.grumbine/noscrub/model_intercompare/gross/rtofs_cice}
+cd $RUNDIR
+
+#-----------------------------------------------
 
 tag=$start
 while [ $tag -le $end ] 

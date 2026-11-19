@@ -34,8 +34,8 @@ export MODDEF=$GDIR/model_definitions
 export modelout=${modelout:-$HOME/noscrub/model_intercompare/rtofs_cice}
 #export modelout=${modelout:-$HOME/clim_data/rtofs_gross/}
 
-export start=${start:-20260821}
-export end=${end:-20260831}
+export start=${start:-20260801}
+export end=${end:-20261031}
 export level=${level:-extreme}
 
 RUNDIR=${RUNDIR:-/u/robert.grumbine/noscrub/model_intercompare/gross/rtofs_cice}

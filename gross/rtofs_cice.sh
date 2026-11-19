@@ -8,7 +8,7 @@
 #PBS -l select=1:ncpus=1
 #--- WCOSS2
 
-# --- Hera
+# --- ursa
 #SBATCH -J hr5
 #SBATCH -e hr5.err
 #SBATCH -o hr5.out
@@ -18,22 +18,28 @@
 #SBATCH -N 1
 #SBATCH --mail-type FAIL
 #SBATCH --mail-user robert.grumbine@noaa.gov
-# --- Hera
-
+# --- ursa
 
 set -xe
 
-# Hera:
+# ursa:
 #source /home/Robert.Grumbine/rg/env3.13/bin/activate
 # Wcoss2
 source $HOME/env3.12/bin/activate
 
 export model=rtofs_cice
 export MODEL=rtofs_cice
-export modelout=$HOME/noscrub/model_intercompare/$MODEL
 
-export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
-#export GDIR=$HOME/noscrub/retros/gross_checks/
+export modelout=$HOME/noscrub/model_intercompare/$MODEL
+if [ ! -d $modelout ] ; then
+  echo could not find model output directory $modelout
+  exit 1
+fi
+export GDIR=$HOME/rgdev/ocean_ice_evaluation/gross/
+if [ ! -d $GDIR ] ; then
+  echo could not find gross check source directory $GDIR
+  exit 1
+fi
 
 export start=20260801
 export end=`date +"%Y%m%d"`
@@ -63,53 +69,3 @@ cd  $HOME/scratch/gross/$model
 ln -sf $GDIR/curves curves
 time $GDIR/$MODEL/${MODEL}_scan.sh
 
-exit
-
-# below here has been moved to ${model}_scan.sh
-# Now that all results have been scanned, check for errors:
-
-# For plots, last number is dot size. Expect fewer pts as go down list, 
-#    so make pts larger
-cat beta.*.* > all.$model
-
-for model in rtofs_cice
-do
-  python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
-
-  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/ice.exceptions all.$model > nonphysical.$model
-  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12.
-
-  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
-  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12.
-done
-
-
-for lead in 0 1 2 3 4 5 6 7 8 
-do
-  fhr=`expr $lead \* 24 + 6`
-  if [ $fhr -lt 10 ] ; then
-    fhr=00$fhr
-  elif [ $fhr -lt 100 ] ; then
-    fhr=0$fhr
-  fi
-
-  cat ${model}.ice.*.$level.$fhr.results > all.${model}.$fhr
-done
-
-# ------------------ plot by parameter
-for model in $MODEL
-do
-  $GDIR/$model/${model}_split.sh unknown.$model
-  if [ ! -d $model ] ; then
-    mkdir $model
-  fi
-  for f in *.s
-  do
-    python3 $GDIR/graphics/plot_errs.py $f $f 12
-  done
-  mv *.png *.s $model
-# ------------------ copy to desk for pseudo-web
-#  cd $model
-#  scp -p *.png rmg3@emc-lw-rgrumbi:website/gross/$model
-# qsub $HOME/rgdev/forweb/cp_rtofs_gross
-done

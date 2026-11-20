@@ -4,7 +4,6 @@
 #PBS -o ufs_cice_eval
 #PBS -j oe
 #PBS -A ICE-DEV
-#PBS -q batch
 #PBS -l walltime=4:00:00
 #PBS -l select=1:ncpus=1
 #--- WCOSS2
@@ -23,26 +22,24 @@
 
 
 set -xe
-#ursa: 
+# Ursa: 
 #source /home/Robert.Grumbine/rg/env3.13/bin/activate
-#wcoss2 
+# Wcoss2 
 source $HOME/env3.12/bin/activate
 
-#export modelout=$HOME/clim_data/rtofs_gross
-#export modelout=/scratch1/NCEPDEV/climate/Lydia.B.Stefanova/Models/ufs_hr1/SeaIce/
-export modelout=$HOME/noscrub/v17/
 #export modelout=$HOME/clim_data/stream4/
+export modelout=$HOME/noscrub/v17/
 if [ ! -d $modelout ] ; then
   echo could not open v17 output directory $modelout
   exit 1
 fi
 
-export modeltag=ufs_cice
+export model=ufs_cice
 
 export GDIR=$HOME/rgdev/ocean_ice_evaluation/gross/
 
 export start=${start:-20261026}
-export end=${end:-20261117}
+export end=${end:-`date +"%Y%m%d"`}
 #export end=$start
 #------------------------ General across platforms --------------
 set -x
@@ -51,20 +48,15 @@ export level=extreme
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/gross
 
-if [ ! -d $HOME/scratch/gross/$modeltag ] ; then
-  mkdir -p  $HOME/scratch/gross/$modeltag
+if [ ! -d $HOME/scratch/gross/$model ] ; then
+  mkdir -p  $HOME/scratch/gross/$model
   if [ $? -ne 0 ] ; then
-    echo zzz could not create rundir  $HOME/scratch/gross/$modeltag
+    echo zzz could not create rundir  $HOME/scratch/gross/$model
     exit 1
   fi
 fi 
-cd  $HOME/scratch/gross/$modeltag
+cd  $HOME/scratch/gross/$model
 ln -sf $GDIR/curves curves
 
-set -x
-for model in ufs_cice
-do
-  export MODEL=$model
-  time $GDIR/$MODEL/${MODEL}_scan.sh
-  # Now that all results have been scanned, check for errors:
-done
+
+time $GDIR/$model/${model}_scan.sh

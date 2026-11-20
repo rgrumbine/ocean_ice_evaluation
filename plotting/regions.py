@@ -7,23 +7,25 @@ class plotting_regions:
       self.extent = [-180, 180, -90, 90]
       self.central_longitude = -80.0
       self.true_scale_latitude = 60.0
-      self.mpro = 'nps'
+      self.mpro = 'platecarree'
 
 class globe(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,4)
       self.xlocs  = list(range(-180,181,30))
       self.ylocs  = list(range(-90, 91, 15))
-      self.extent = [-180, 181, -90, 91]
+      self.extent = [-180, 180, -90, 90]
       self.central_longitude  =  0.
       self.true_scale_latitude = 0.0
       self.mpro = 'platecarree'
 
 class nh(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(6,8)
       self.xlocs  = list(range(-180,181,15))
-      self.ylocs  = list(range(0, 90, 10))
+      self.ylocs  = list(range(0, 91, 10))
       self.extent = [-180, 180, 35, 90]
       self.central_longitude = -80.
       self.true_scale_latitude = 65.0
@@ -31,9 +33,10 @@ class nh(plotting_regions):
 
 class sh(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,8)
       self.xlocs  = list(range(-180,181,15))
-      self.ylocs  = list(range(-90, 0, 5))
+      self.ylocs  = list(range(-90, 1, 5))
       self.extent = [-180, 180, -80, -50]
       self.central_longitude = -80.
       self.true_scale_latitude = -65.0
@@ -41,6 +44,7 @@ class sh(plotting_regions):
 
 class alaska(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,8)
       self.xlocs  = list(range(-200, 0,10))
       self.ylocs  = list(range(55, 80, 5))
@@ -51,6 +55,7 @@ class alaska(plotting_regions):
 
 class nbering(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,6)
       self.xlocs  = list(range(-180,181,10))
       self.ylocs  = list(range(60,85, 5))
@@ -61,6 +66,7 @@ class nbering(plotting_regions):
 
 class sbering(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,6)
       self.xlocs  = list(range(-180,181,10))
       self.ylocs  = list(range(50, 80, 5))
@@ -71,6 +77,7 @@ class sbering(plotting_regions):
 
 class gulf_stl(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,6)
       self.xlocs  = list(range(-75,-45,5))
       self.ylocs  = list(range(45, 60, 5))
@@ -81,6 +88,7 @@ class gulf_stl(plotting_regions):
 
 class nsr(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,4)
       self.xlocs  = list(range(-180,181,15))
       self.ylocs  = list(range(45, 91, 5))
@@ -91,6 +99,7 @@ class nsr(plotting_regions):
 
 class ross(plotting_regions):
   def __init__(self):
+      super().__init__()
       self.figsize=(8,4)
       self.xlocs  = list(range(-180,181,15))
       self.ylocs  = list(range(-80,-45, 5))

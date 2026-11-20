@@ -8,21 +8,21 @@
 #PBS -l select=1:ncpus=1
 #--- WCOSS2
 
-# --- ursa
-#SBATCH -J hr5
-#SBATCH -e hr5.err
-#SBATCH -o hr5.out
-#SBATCH -t 5:55:00
-#SBATCH -q batch
-#SBATCH -A marine-cpu
-#SBATCH -N 1
-#SBATCH --mail-type FAIL
-#SBATCH --mail-user robert.grumbine@noaa.gov
-# --- ursa
+## --- Ursa
+##SBATCH -J hr5
+##SBATCH -e hr5.err
+##SBATCH -o hr5.out
+##SBATCH -t 5:55:00
+##SBATCH -q batch
+##SBATCH -A marine-cpu
+##SBATCH -N 1
+##SBATCH --mail-type FAIL
+##SBATCH --mail-user robert.grumbine@noaa.gov
+## --- Ursa
 
 set -xe
 
-# ursa:
+# Ursa:
 #source /home/Robert.Grumbine/rg/env3.13/bin/activate
 # Wcoss2
 source $HOME/env3.12/bin/activate

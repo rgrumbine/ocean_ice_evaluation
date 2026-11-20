@@ -52,17 +52,17 @@ do
   do
     if [ -f $modelout/rtofs.${tag}/rtofs_glo.t00z.${lead}.cice_inst.nc ] ; then
       if [ ! -f beta.$tag.${lead} ] ; then
-      time python3 $GDIR/$MODEL/$MODEL.py \
+      time python3 $GDIR/$model/$model.py \
           $modelout/rtofs.${tag}/rtofs_glo.t00z.${lead}.cice_inst.nc \
-          $GDIR/ctl/$MODEL.$level fly > beta.$tag.${lead}
+          $GDIR/ctl/$model.$level fly > beta.$tag.${lead}
       mv fhistogram fhistogram.$tag.$lead
       fi
 
     elif [ -f $modelout/${tag}/rtofs_glo.t00z.${lead}.cice_inst.nc ] ; then
       if [ ! -f beta.$tag.${lead} ] ; then
-      time python3 $GDIR/$MODEL/$MODEL.py \
+      time python3 $GDIR/$model/$model.py \
           $modelout/${tag}/rtofs_glo.t00z.${lead}.cice_inst.nc \
-          $GDIR/ctl/$MODEL.$level fly > beta.$tag.${lead}
+          $GDIR/ctl/$model.$level fly > beta.$tag.${lead}
       mv fhistogram fhistogram.$tag.$lead
       fi
     fi
@@ -76,42 +76,35 @@ done
 
 # For plots, last number is dot size. Expect fewer pts as go down list,
 #    so make pts larger
-cat beta.*.* > all.$MODEL
+cat beta.*.* > all.$model
 
-for model in $MODEL
-do
-  python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12. $tag
+python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12. $tag
 
-  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$model all.$model > nonphysical.$model
-  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12. $tag
+python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$model all.$model > nonphysical.$model
+python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12. $tag
 
-  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
-  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12. $tag
-done
+python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
+python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12. $tag
 
 #-------------------------------------------------------------------------
 
 for lead in n00 f24 f48 f72 f96 f120 f144 f168 f192
 do
-  cat beta.*.$lead > all.$MODEL.$lead
+  cat beta.*.$lead > all.$model.$lead
 done
 
 # ------------------ plot by parameter
-for model in $MODEL
+$GDIR/$model/${model}_split.sh nonphysical.$model
+if [ ! -d $model ] ; then
+  mkdir $model
+fi
+for f in *.s
 do
-  #$GDIR/$model/${model}_split.sh unknown.$model
-  $GDIR/$model/${model}_split.sh nonphysical.$model
-  if [ ! -d $model ] ; then
-    mkdir $model
+  if [ -s $f ] ; then
+    python3 $GDIR/graphics/plot_errs.py $f $f 12 $tag
   fi
-  for f in *.s
-  do
-    if [ -s $f ] ; then
-      python3 $GDIR/graphics/plot_errs.py $f $f 12 $tag
-    fi
-  done
-  mv *.png *.s $model
-# ------------------ copy to desk for pseudo-web
-  cd $model
-  # need dtn node: scp -p *.png rgrumbine@emcrzdm:rgweb/ice/gross/$model
 done
+mv *.png *.s $model
+# ------------------ copy to desk for pseudo-web
+cd $model
+# need dtn node: scp -p *.png rgrumbine@emcrzdm:rgweb/ice/gross/$model
